@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>五目並べ（オリジナルルール）</title>
+  <style>
+    #board {
+      display: grid;
+      grid-template-columns: repeat(15, 30px);
+      grid-template-rows: repeat(15, 30px);
+      gap: 1px;
+      margin-top: 20px;
+    }
+
+    .cell {
+      width: 30px;
+      height: 30px;
+      background-color: #deb887;
+      border: 1px solid #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .unobserved {
+      background-color: #eee;
+    }
+
+    .black {
+      background-color: black;
+      border-radius: 50%;
+    }
+
+    .white {
+      background-color: white;
+      border-radius: 50%;
+      border: 1px solid #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>量子五目並べ</h1>
+  <p id="turn-indicator">現在のターン：黒</p>
+
+  <!-- <div>
+    <label>石の確率を選んでください：</label>
+    <select id="probability-select">
+      <option value="0.9">90%黒</option>
+      <option value="0.7">70%黒</option>
+      <option value="0.3">30%黒</option>
+      <option value="0.1">10%黒</option>
+    </select>
+  </div> -->
+
+  <div id="observe-controls" style="display: none;">
+    <button id="observe-button">観測する</button>
+    <button id="skip-observe-button">観測しない</button>
+    <button id="revert-button" style="display: none;">戻る</button>
+  </div>
+
+  <div id="board"></div>
+
+  <script src="gomoku.js"></script>
+</body>
+</html>
