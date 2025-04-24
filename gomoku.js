@@ -170,9 +170,9 @@ preObservationState = board.map(row => row.map(cell => ({
         const isBlack = r < cell.probability;
   
         cell.tempColor = isBlack ? "black" : "white";
-        cell.element.textContent = isBlack ? "●" : "○";
-        cell.element.style.backgroundColor = "";
-        cell.element.style.color = "";
+        //cell.element.textContent = isBlack ? "●" : "○";
+        cell.element.style.backgroundColor = isBlack ? "black" : "white";
+        cell.element.style.color = isBlack ? "white" : "black";
       }
 
     });
