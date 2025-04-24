@@ -49,7 +49,7 @@ function createBoard() {
 
 // 各プレイヤーの確率候補
 const blackProbs = [0.9, 0.7];
-const whiteProbs = [0.3, 0.1];
+const whiteProbs = [0.1, 0.3];
 
 // 現在の確率インデックス
 let blackProbIndex = 0;
