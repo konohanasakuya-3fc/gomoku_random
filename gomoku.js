@@ -95,6 +95,7 @@ const probabilitySelect = document.getElementById("probability-select");
 // マスをクリックしたときの処理
 boardElement.addEventListener("click", (e) => {
     const cellEl = e.target;
+    skipObserveBtn.style.display = "inline-block";
     if (!cellEl.classList.contains("cell")) return;
     if (gameEnded || gamePhase !== "waiting_place") return;
     const x = parseInt(cellEl.dataset.x, 10);
@@ -189,9 +190,9 @@ preObservationState = board.map(row => row.map(cell => ({
         const isBlack = r < cell.probability;
   
         cell.tempColor = isBlack ? "black" : "white";
-        cell.element.textContent = isBlack ? "●" : "○";
-        cell.element.style.backgroundColor = "";
-        cell.element.style.color = "";
+        //cell.element.textContent = isBlack ? "●" : "○";
+        cell.element.style.backgroundColor = isBlack ? "black" : "white";
+        cell.element.style.color = isBlack ? "white" : "black";
       }
 
     });
@@ -206,9 +207,11 @@ preObservationState = board.map(row => row.map(cell => ({
       
         observeControls.style.display = "none";
         revertBtn.style.display = "none"; // 勝負がついたら戻るボタンも非表示に
+        skipObserveBtn.style.display = "none";
       } else {
       // 勝ちがなければ戻るボタンを表示
       revertBtn.style.display = "inline-block";
+      skipObserveBtn.style.display = "none";
     }
   
     //observeControls.style.display = "none";
