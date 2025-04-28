@@ -1,5 +1,6 @@
 // 定数
 const BOARD_SIZE = 15;
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const boardElement = document.getElementById("board");
 
 
@@ -20,36 +21,54 @@ let gameEnded = false;
 // 盤面データの2次元配列
 const board = [];
 
-// 盤面の初期化
 function createBoard() {
-  for (let y = 0; y < BOARD_SIZE; y++) {
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // ← これも必要！
+
+  for (let y = -1; y < BOARD_SIZE; y++) {
     const row = [];
-    for (let x = 0; x < BOARD_SIZE; x++) {
-      // 空のマスを生成
+    for (let x = -1; x < BOARD_SIZE; x++) {
       const cell = document.createElement("div");
       cell.classList.add("cell");
       cell.dataset.x = x;
       cell.dataset.y = y;
 
-      // 後で使う用のデータ
-      row.push({
-        x,
-        y,
-        element: cell,
-        observed: false,
-        owner: null, // 'black' or 'white'
-        probability: null, // 0.9, 0.7, etc
-      });
+      if (y === -1 && x === -1) {
+        // 左上の空白
+        cell.style.backgroundColor = "#ddd";
+      } else if (y === -1) {
+        // 上側の文字列（A, B, C...）
+        cell.textContent = letters[x];
+        cell.style.backgroundColor = "#ddd";
+        cell.style.fontWeight = "bold";
+        cell.style.textAlign = "center";
+      } else if (x === -1) {
+        // 左側の数字（1, 2, 3...）
+        cell.textContent = y + 1;
+        cell.style.backgroundColor = "#ddd";
+        cell.style.fontWeight = "bold";
+        cell.style.textAlign = "center";
+      } else {
+        // 通常マス
+        row.push({
+          x,
+          y,
+          element: cell,
+          observed: false,
+          owner: null,
+          probability: null,
+        });
+      }
 
       boardElement.appendChild(cell);
     }
-    board.push(row);
+    if (y >= 0) board.push(row);
   }
 }
 
+
 // 各プレイヤーの確率候補
 const blackProbs = [0.9, 0.7];
-const whiteProbs = [0.1, 0.3];
+const whiteProbs = [0.3, 0.1];
 
 // 現在の確率インデックス
 let blackProbIndex = 0;
@@ -170,9 +189,9 @@ preObservationState = board.map(row => row.map(cell => ({
         const isBlack = r < cell.probability;
   
         cell.tempColor = isBlack ? "black" : "white";
-        //cell.element.textContent = isBlack ? "●" : "○";
-        cell.element.style.backgroundColor = isBlack ? "black" : "white";
-        cell.element.style.color = isBlack ? "white" : "black";
+        cell.element.textContent = isBlack ? "●" : "○";
+        cell.element.style.backgroundColor = "";
+        cell.element.style.color = "";
       }
 
     });
